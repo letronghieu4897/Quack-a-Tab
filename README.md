@@ -1,18 +1,19 @@
-# Quack-a-Tab Chrome Extension
+# 🦆 Quack-a-Tab Chrome Extension
 
-A Chrome extension that allows you to rename browser tabs for better organization and workflow management.
+A fun, duck-themed Chrome extension that allows you to rename your browser tabs for better organization and workflow management. Give your tabs a quack-tastic new identity!
 
 ## Features
 
-- Rename any browser tab with a custom title
-- Reset tab names to their original titles
-- Saves recently used names for quick reuse
-- Custom names persist during page refreshes
-- Names are automatically cleared when tabs are closed
+- 🏷️ Rename any browser tab with a custom title
+- 🔄 Reset tab names to their original titles with a single click
+- 📋 Saves recently used names for quick reuse
+- 💾 Custom names persist during page refreshes
+- 🧹 Names are automatically cleared when tabs are closed
+- 🌓 Supports both light and dark themes
 
 ## How It Works
 
-The extension temporarily modifies the document.title property of web pages to display custom names in your browser tabs. While Chrome doesn't allow complete tab title replacement through its API, this extension uses a content script to modify the page title, which affects how the tab appears in your browser.
+Quack-a-Tab temporarily modifies the document.title property of web pages to display custom names in your browser tabs. While Chrome doesn't allow complete tab title replacement through its API, this extension uses a content script to modify the page title, which affects how the tab appears in your browser.
 
 ## Setup Instructions
 
@@ -31,6 +32,7 @@ The extension temporarily modifies the document.title property of web pages to d
 3. Click "Save" to apply the new name
 4. To revert to the original name, click "Reset to Original"
 5. Previously used names appear in the "Recent Names" section for quick reuse
+6. Toggle between light and dark themes using the moon/sun icon
 
 ## Project Structure
 
@@ -40,6 +42,7 @@ The extension temporarily modifies the document.title property of web pages to d
 - `content.js` - Content script that modifies page titles
 - `background.js` - Background script that manages tab events and cleanup
 - `icons/` - Directory containing extension icons
+- `privacy-policy.html` - Detailed privacy policy for the extension
 
 ## Technical Details
 
@@ -48,6 +51,14 @@ The extension uses:
 - Content scripts to modify the page title
 - Background scripts to monitor tab events and clean up when tabs are closed
 - Message passing between components for communication
+
+## Use Cases
+
+- 📊 Label tabs with project names for better workflow organization
+- ✅ Mark tabs with progress status (e.g., "REVIEWED: Project Proposal")
+- 🔖 Assign custom categories to similar tabs (e.g., "RESEARCH: AI Papers")
+- 🗂️ Group related tabs with consistent naming conventions
+- 🔔 Add reminders to tab names (e.g., "URGENT: Respond to email")
 
 ## Limitations
 
