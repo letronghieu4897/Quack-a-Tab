@@ -1,6 +1,6 @@
 {
     "manifest_version": 3,
-    "name": "Tab Renamer",
+    "name": "Quack-a-Tab",
     "version": "1.0",
     "description": "Rename your Chrome tabs for better organization",
     "permissions": ["tabs", "storage"],

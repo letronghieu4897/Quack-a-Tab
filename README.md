@@ -1,4 +1,4 @@
-# Chrome Tab Renamer Extension
+# Quack-a-Tab Chrome Extension
 
 A Chrome extension that allows you to rename browser tabs for better organization and workflow management.
 
@@ -22,11 +22,11 @@ The extension temporarily modifies the document.title property of web pages to d
 2. Open Google Chrome and navigate to `chrome://extensions/`
 3. Enable "Developer mode" by toggling the switch in the top right corner
 4. Click "Load unpacked" and select the directory containing the extension files
-5. The Tab Renamer extension should now appear in your extensions list
+5. The Quack-a-Tab extension should now appear in your extensions list
 
 ### Using the Extension
 
-1. Click the Tab Renamer icon in your browser toolbar
+1. Click the Quack-a-Tab icon in your browser toolbar
 2. Enter a new name for the current tab in the input field
 3. Click "Save" to apply the new name
 4. To revert to the original name, click "Reset to Original"
@@ -58,7 +58,7 @@ The extension uses:
 ## Privacy Policy
 
 ### Data Collection
-Tab Renamer does not collect, transmit, or share any personal data. All the information used by the extension is stored locally on your device using Chrome's storage API and is never sent to external servers.
+Quack-a-Tab does not collect, transmit, or share any personal data. All the information used by the extension is stored locally on your device using Chrome's storage API and is never sent to external servers.
 
 ### Information Usage
 - The extension stores tab names and your recently used custom names locally on your device.
@@ -66,7 +66,7 @@ Tab Renamer does not collect, transmit, or share any personal data. All the info
 - No analytics, tracking, or fingerprinting technologies are used.
 
 ### Permissions
-Tab Renamer requires the following permissions:
+Quack-a-Tab requires the following permissions:
 - **tabs**: To access and modify the titles of browser tabs.
 - **storage**: To save your custom tab names and recent names locally.
 
