@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Tab Renamer</title>
+  <style>
+    body {
+      width: 250px;
+      padding: 10px;
+      font-family: Arial, sans-serif;
+    }
+    .container {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+    input {
+      padding: 8px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      width: 100%;
+      box-sizing: border-box;
+    }
+    button {
+      padding: 8px;
+      background-color: #4285f4;
+      color: white;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
+    button:hover {
+      background-color: #3367d6;
+    }
+    .saved-names {
+      margin-top: 10px;
+      max-height: 200px;
+      overflow-y: auto;
+    }
+    .saved-name {
+      display: flex;
+      justify-content: space-between;
+      padding: 5px;
+      border-bottom: 1px solid #eee;
+    }
+    .saved-name button {
+      padding: 2px 5px;
+      font-size: 12px;
+      background-color: #f44336;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h2>Rename Current Tab</h2>
+    <input type="text" id="tabName" placeholder="Enter new tab name">
+    <button id="saveButton">Save</button>
+    <button id="resetButton">Reset to Original</button>
+    
+    <div id="savedNames" class="saved-names">
+      <h3>Recent Names</h3>
+      <!-- Saved names will be displayed here -->
+    </div>
+  </div>
+
+  <script src="popup.js"></script>
+</body>
+</html>
