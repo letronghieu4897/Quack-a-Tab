@@ -2,64 +2,428 @@
 <html>
 <head>
   <title>Quack-a-Tab</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
   <style>
-    body {
-      width: 250px;
-      padding: 10px;
-      font-family: Arial, sans-serif;
+    :root {
+      --primary-color: #4361ee;
+      --accent-color: #3a0ca3;
+      --light-bg: #f8f9fa;
+      --dark-bg: #212529;
+      --success-color: #38b000;
+      --danger-color: #d00000;
+      --text-color: #333;
+      --light-text: #f8f9fa;
+      --border-radius: 8px;
+      --box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      --transition: all 0.3s ease;
     }
-    .container {
+
+    body {
+      width: 340px;
+      margin: 0;
+      padding: 0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(135deg, var(--light-bg) 0%, #e9ecef 100%);
+      color: var(--text-color);
+    }
+
+    .app-container {
       display: flex;
       flex-direction: column;
-      gap: 10px;
+      min-height: 450px;
+      position: relative;
+      overflow: hidden;
     }
-    input {
-      padding: 8px;
-      border: 1px solid #ccc;
-      border-radius: 4px;
-      width: 100%;
-      box-sizing: border-box;
-    }
-    button {
-      padding: 8px;
-      background-color: #4285f4;
+
+    .header {
+      background: linear-gradient(135deg, var(--primary-color) 0%, var(--accent-color) 100%);
       color: white;
-      border: none;
-      border-radius: 4px;
-      cursor: pointer;
-      transition: background-color 0.3s;
-    }
-    button:hover {
-      background-color: #3367d6;
-    }
-    .saved-names {
-      margin-top: 10px;
-      max-height: 200px;
-      overflow-y: auto;
-    }
-    .saved-name {
+      padding: 15px 20px;
+      border-radius: 0 0 var(--border-radius) var(--border-radius);
       display: flex;
+      align-items: center;
       justify-content: space-between;
-      padding: 5px;
-      border-bottom: 1px solid #eee;
+      box-shadow: var(--box-shadow);
     }
-    .saved-name button {
-      padding: 2px 5px;
+
+    .header h1 {
+      margin: 0;
+      font-size: 22px;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .logo-icon {
+      font-size: 24px;
+    }
+
+    .current-tab {
+      background-color: rgba(255, 255, 255, 0.1);
+      border-radius: var(--border-radius);
+      padding: 8px 12px;
+      margin-top: 8px;
       font-size: 12px;
-      background-color: #f44336;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      max-width: 290px;
+    }
+
+    .content {
+      padding: 20px;
+      flex-grow: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+    }
+
+    .input-group {
+      position: relative;
+      margin-bottom: 5px;
+    }
+
+    .input-group label {
+      display: block;
+      margin-bottom: 8px;
+      font-weight: 500;
+      color: var(--text-color);
+    }
+
+    .input-field {
+      position: relative;
+      display: flex;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.08);
+      border-radius: var(--border-radius);
+    }
+
+    .input-icon {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 44px;
+      background-color: var(--primary-color);
+      color: white;
+      border-radius: var(--border-radius) 0 0 var(--border-radius);
+    }
+
+    .input-field input {
+      flex-grow: 1;
+      padding: 12px 15px;
+      border: none;
+      border-radius: 0 var(--border-radius) var(--border-radius) 0;
+      font-size: 14px;
+      outline: none;
+      transition: var(--transition);
+    }
+
+    .input-field input:focus {
+      box-shadow: 0 0 0 2px rgba(67, 97, 238, 0.3);
+    }
+
+    .action-buttons {
+      display: flex;
+      gap: 10px;
+      margin-top: 5px;
+    }
+
+    .btn {
+      padding: 10px 15px;
+      border: none;
+      border-radius: var(--border-radius);
+      cursor: pointer;
+      font-weight: 600;
+      font-size: 14px;
+      transition: var(--transition);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      flex-grow: 1;
+    }
+
+    .btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+    }
+
+    .btn-primary {
+      background-color: var(--primary-color);
+      color: white;
+    }
+
+    .btn-primary:hover {
+      background-color: var(--accent-color);
+    }
+
+    .btn-reset {
+      background-color: #e9ecef;
+      color: var(--text-color);
+    }
+
+    .btn-reset:hover {
+      background-color: #dee2e6;
+    }
+
+    .recent-section {
+      margin-top: 10px;
+      border-top: 1px solid #e9ecef;
+      padding-top: 15px;
+    }
+
+    .section-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 10px;
+    }
+
+    .section-header h2 {
+      margin: 0;
+      font-size: 16px;
+      font-weight: 600;
+      color: var(--text-color);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .recent-names {
+      max-height: 180px;
+      overflow-y: auto;
+      background-color: white;
+      border-radius: var(--border-radius);
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+    }
+
+    .recent-item {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 10px 15px;
+      border-bottom: 1px solid #f1f3f5;
+      transition: var(--transition);
+    }
+
+    .recent-item:hover {
+      background-color: #f8f9fa;
+    }
+
+    .recent-item:last-child {
+      border-bottom: none;
+    }
+
+    .recent-name {
+      font-size: 14px;
+      cursor: pointer;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      max-width: 200px;
+      transition: var(--transition);
+    }
+
+    .recent-name:hover {
+      color: var(--primary-color);
+    }
+
+    .recent-actions {
+      display: flex;
+      gap: 5px;
+    }
+
+    .action-btn {
+      width: 30px;
+      height: 30px;
+      border-radius: 50%;
+      border: none;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: var(--transition);
+      background-color: transparent;
+      color: #6c757d;
+    }
+
+    .action-btn:hover {
+      background-color: #e9ecef;
+      color: var(--text-color);
+    }
+
+    .use-btn:hover {
+      color: var(--success-color);
+    }
+
+    .delete-btn:hover {
+      color: var(--danger-color);
+    }
+
+    .empty-state {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+      text-align: center;
+      color: #6c757d;
+    }
+
+    .empty-icon {
+      font-size: 30px;
+      margin-bottom: 10px;
+      opacity: 0.6;
+    }
+
+    .footer {
+      padding: 12px 20px;
+      text-align: center;
+      font-size: 12px;
+      color: #6c757d;
+      background-color: #e9ecef;
+      border-top: 1px solid #dee2e6;
+    }
+
+    /* Custom scrollbar */
+    ::-webkit-scrollbar {
+      width: 8px;
+    }
+
+    ::-webkit-scrollbar-track {
+      background: #f1f3f5;
+      border-radius: 10px;
+    }
+
+    ::-webkit-scrollbar-thumb {
+      background: #c1c8e4;
+      border-radius: 10px;
+    }
+
+    ::-webkit-scrollbar-thumb:hover {
+      background: #a8b1cf;
+    }
+
+    /* Animations */
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .recent-item, .btn, .input-field {
+      animation: fadeIn 0.3s ease forwards;
+    }
+
+    /* Toggle for theme */
+    .theme-toggle {
+      border: none;
+      background: transparent;
+      color: white;
+      cursor: pointer;
+      font-size: 18px;
+      transition: var(--transition);
+    }
+
+    .theme-toggle:hover {
+      transform: rotate(30deg);
+    }
+
+    /* Dark mode (can be toggled via JS) */
+    body.dark-mode {
+      background: linear-gradient(135deg, #2b2d42 0%, #1a1a2e 100%);
+      color: var(--light-text);
+    }
+
+    body.dark-mode .content {
+      background-color: #1a1a2e;
+    }
+
+    body.dark-mode .input-field input {
+      background-color: #2b2d42;
+      color: var(--light-text);
+    }
+
+    body.dark-mode .recent-names {
+      background-color: #2b2d42;
+    }
+
+    body.dark-mode .recent-item {
+      border-bottom-color: #393e46;
+    }
+
+    body.dark-mode .recent-item:hover {
+      background-color: #393e46;
+    }
+
+    body.dark-mode .action-btn:hover {
+      background-color: #393e46;
+      color: var(--light-text);
+    }
+
+    body.dark-mode .footer {
+      background-color: #1a1a2e;
+      border-top-color: #393e46;
+    }
+
+    body.dark-mode .btn-reset {
+      background-color: #393e46;
+      color: var(--light-text);
     }
   </style>
 </head>
 <body>
-  <div class="container">
-    <h2>Rename Current Tab</h2>
-    <input type="text" id="tabName" placeholder="Enter new tab name">
-    <button id="saveButton">Save</button>
-    <button id="resetButton">Reset to Original</button>
+  <div class="app-container">
+    <div class="header">
+      <h1><i class="fas fa-kiwi-bird logo-icon"></i> Quack-a-Tab</h1>
+      <button id="themeToggle" class="theme-toggle">
+        <i class="fas fa-moon"></i>
+      </button>
+    </div>
     
-    <div id="savedNames" class="saved-names">
-      <h3>Recent Names</h3>
-      <!-- Saved names will be displayed here -->
+    <div class="content">
+      <div class="current-tab" id="currentTabInfo">
+        Current Tab: Loading...
+      </div>
+      
+      <div class="input-group">
+        <label for="tabName">Rename Your Tab</label>
+        <div class="input-field">
+          <div class="input-icon">
+            <i class="fas fa-edit"></i>
+          </div>
+          <input type="text" id="tabName" placeholder="Enter new tab name">
+        </div>
+      </div>
+      
+      <div class="action-buttons">
+        <button id="saveButton" class="btn btn-primary">
+          <i class="fas fa-save"></i> Save
+        </button>
+        <button id="resetButton" class="btn btn-reset">
+          <i class="fas fa-undo"></i> Reset
+        </button>
+      </div>
+      
+      <div class="recent-section">
+        <div class="section-header">
+          <h2><i class="fas fa-history"></i> Recent Names</h2>
+          <span id="recentCount" class="recent-count"></span>
+        </div>
+        
+        <div id="savedNames" class="recent-names">
+          <!-- Empty state initially shown -->
+          <div id="emptyState" class="empty-state">
+            <i class="fas fa-list-alt empty-icon"></i>
+            <p>No recent names yet</p>
+          </div>
+          
+          <!-- Recent items will be added here via JS -->
+        </div>
+      </div>
+    </div>
+    
+    <div class="footer">
+      <p>Organize your tabs with custom names!</p>
     </div>
   </div>
 
